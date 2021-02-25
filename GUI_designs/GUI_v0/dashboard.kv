@@ -1,19 +1,29 @@
 <FloatLayout>
 
 
-####### divider canvas #######
+
+
+
+
+
+####### divider canvases #######
     canvas:
         Rectangle:
+            group: 'a'
             pos: self.center_x - 40, 165
             size: 80, 5
 
         Rectangle:
+            group: 'a'
             pos: self.center_x - 150, 120
             size: 3, 320
 
         Rectangle:
-            pos: self.center_x - 65, 300
-            size: 150, 5
+            group: 'a'
+            pos: self.center_x - 75, 300
+            size: 170, 5
+
+
 
 
 
@@ -25,9 +35,6 @@
         pos_hint: {'x':0.45, 'y':0.6}
         size_hint: None, None
         font_size: 35
-
-
-
 
 
 
@@ -51,9 +58,11 @@
     Label:
         text: app.str_batt_char
         font_name: 'myfont'
-        pos_hint: {'x':0.09, 'y':0.15}
+        pos_hint: {'x':0.09, 'y':0.05}
         size_hint: None, None
         font_size:30
+
+
 
 
 
@@ -78,4 +87,27 @@
 
 
 
+##### Switches ######
+    Switch:
+        active: False
+        on_active: app.headlight_callback(self, self.active)
+        pos_hint: {'x':0.25, 'y':0.04}
+        size_hint: None, None
 
+    Switch:
+        active: False
+        #on_active: app.headlight_callback(self, self.active)
+        pos_hint: {'x':0.4, 'y':0.04}
+        size_hint: None, None
+
+    Switch:
+        active: False
+        #on_active: app.headlight_callback(self, self.active)
+        pos_hint: {'x':0.55, 'y':0.04}
+        size_hint: None, None
+
+    Switch:
+        active: False
+        #on_active: app.headlight_callback(self, self.active)
+        pos_hint: {'x':0.7, 'y':0.04}
+        size_hint: None, None
