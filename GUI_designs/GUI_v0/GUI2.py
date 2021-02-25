@@ -41,14 +41,22 @@ class FloatLayout(FloatLayout):    #root widget, main logic class
 
 
 class dashboardApp(App):
-    integer_var = 56
-    something = str(integer_var)
+    kms_ran = 1500
+    str_kms_ran = str(kms_ran) + 'kms'
+
+    mileage = 56
+    str_mileage = str(mileage)
 
     battery_percentage = 49
     str_batt_per = str(battery_percentage)
 
-    battery_charge_time = 2
-    str_batt_char = str(battery_charge_time)
+    charging = False    #changes when charger is pluged in
+    battery_charge_time = 0
+    str_batt_char = ''
+    if charging == True:
+        battery_charge_time = 2
+        str_batt_char = str(battery_charge_time) + 'hr'
+
 
     def build(self):
         return FloatLayout()
@@ -56,7 +64,7 @@ class dashboardApp(App):
 
 
 
-if __name__ == "__main__":
+if __name__ == "__main__": 
     dashboardApp().run()
 
 
