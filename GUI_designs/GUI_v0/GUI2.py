@@ -6,6 +6,8 @@ from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.core.text import LabelBase
 from kivy import clock
+from kivy.properties import DictProperty
+
 
 
 LabelBase.register(fn_regular='Orbitron-VariableFont_wght.ttf', name='myfont')
@@ -21,7 +23,6 @@ Window.size = (800, 480)
 
 class FloatLayout(FloatLayout):    #root widget, main logic class
     current_speed = 69
-    remaining_kms = 12
 
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -29,16 +30,29 @@ class FloatLayout(FloatLayout):    #root widget, main logic class
         self.speed = Label(text='[size=70][font=Fonts/static/Orbitron-Medium.ttf]{}'.format(self.current_speed), markup=True, size_hint=(1.0, 1.0))
         self.speed_unit = Label(text='[size=25][font=Fonts/static/Orbitron-Medium.ttf]KMPH', markup=True,
                                 size_hint=(1.0, 1.0), pos_hint={"x": 0.0, "y": -0.1})
-        self.remaining_kms = Label(text='[size=70][font=Fonts/static/Orbitron-Medium.ttf]{}'.format(self.remaining_kms), markup=True, size_hint=(1.0,1.0), pos_hint={"x": 0.0, "y": -0.2}, font_size='10sp')
-        #self.battery_capacity = Rectangle(pos=(100, 100), size=(100, 100))
+
 
         self.add_widget(self.speed)
         self.add_widget(self.speed_unit)
-        #self.add_widget(self.battery_capacity)
+
+
+
+
 
 
 class dashboardApp(App):
+    variables = DictProperty({"kms_ran": 1500})
+
+
     kms_ran = 1500
+
+    def update(self, interval):
+        self.variables["kms_ran"] += 1
+        print(self.str_kms_ran)
+
+
+
+
     str_kms_ran = str(kms_ran) + 'kms'
 
     mileage = 56
@@ -64,13 +78,12 @@ class dashboardApp(App):
 
 
     def build(self):
+        clock.Clock.schedule_interval(self.update, 1)
+
         return FloatLayout()
 
 
 
 if __name__ == "__main__": 
     dashboardApp().run()
-
-
-
 
