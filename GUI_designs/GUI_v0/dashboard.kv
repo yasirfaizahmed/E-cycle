@@ -10,7 +10,7 @@
     canvas:
         Rectangle:
             group: 'a'
-            pos: self.center_x - 40, 165
+            pos: self.center_x - 38, 165
             size: 80, 5
 
         Rectangle:
@@ -27,10 +27,30 @@
 
 
 
+######## speed ########
+    Label:
+        text: str(app.variables["speed"])
+        font_name: 'myfont'
+        pos_hint: {'x':0.44, 'y':0.4}
+        size_hint: None, None
+        font_size: 80
+
+    Label:
+        text: 'KMPH'
+        font_name: 'myfont'
+        pos_hint: {'x':0.44, 'y':0.29}
+        size_hint: None, None
+        font_size: 30
+
+
+
+
+
+
 
 ####### KMS_ran #######
     Label:
-        text: str(app.variables["kms_ran"])
+        text: str(app.variables["kms_ran"]) + ' kms'
         font_name: 'myfont'
         pos_hint: {'x':0.45, 'y':0.6}
         size_hint: None, None
@@ -78,7 +98,7 @@
         font_size: 20
 
     Label:
-        text: app.str_mileage
+        text: str(app.variables["mileage"])
         font_name: 'myfont'
         pos_hint: {'x':0.15, 'y':0.15}
         size_hint: None, None
