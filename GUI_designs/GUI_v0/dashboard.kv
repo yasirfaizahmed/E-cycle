@@ -1,34 +1,38 @@
 <FloatLayout>
 
 
-
-
-
+####### divider canvas #######
     canvas:
         Rectangle:
-            pos: self.center_x - 150, 172
-            size: 300, 5
+            pos: self.center_x - 40, 165
+            size: 80, 5
 
         Rectangle:
-            pos: self.center_x - 150, 0
-            size: 3, self.height
+            pos: self.center_x - 150, 120
+            size: 3, 320
+
+        Rectangle:
+            pos: self.center_x - 65, 300
+            size: 150, 5
 
 
 
 
-
+####### KMS_ran #######
     Label:
-        text: 'Mileage '
+        text: app.str_kms_ran
         font_name: 'myfont'
-        text_size: (260, 210)
-        font_size: 20
-
-    Label:
-        text: app.something
-        font_name: 'myfont'
-        text_size: (70, 230)
+        pos_hint: {'x':0.45, 'y':0.6}
+        size_hint: None, None
         font_size: 35
 
+
+
+
+
+
+
+####### Battery info #######
     Image:
         source: 'battery.png'
         pos_hint: {'x':0.06, 'y':0.3}
@@ -45,11 +49,33 @@
         font_size: 35
 
     Label:
-        text: app.str_batt_char + 'hr'
+        text: app.str_batt_char
         font_name: 'myfont'
         pos_hint: {'x':0.09, 'y':0.15}
         size_hint: None, None
         font_size:30
+
+
+
+
+
+
+####### Mileage #######
+    Label:
+        text: 'Mileage '
+        font_name: 'myfont'
+        pos_hint: {'x':0.05, 'y':0.15}
+        size_hint: None, None
+        font_size: 20
+
+    Label:
+        text: app.str_mileage
+        font_name: 'myfont'
+        pos_hint: {'x':0.15, 'y':0.15}
+        size_hint: None, None
+        font_size: 35
+
+
 
 
 
