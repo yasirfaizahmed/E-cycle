@@ -5,8 +5,7 @@ from kivy.core.window import Window
 from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
 from kivy.core.text import LabelBase
-from kivy.uix.image import Image
-from kivy.graphics import Rectangle
+from kivy import clock
 
 
 LabelBase.register(fn_regular='Orbitron-VariableFont_wght.ttf', name='myfont')
@@ -17,9 +16,7 @@ Window.size = (800, 480)
 
 
 
-class grid(Widget):     #inheritaing from Widget, this is root widget
-    def call(self):
-        return FloatLayout()
+
 
 
 class FloatLayout(FloatLayout):    #root widget, main logic class
@@ -50,12 +47,20 @@ class dashboardApp(App):
     battery_percentage = 49
     str_batt_per = str(battery_percentage)
 
-    charging = False    #changes when charger is pluged in
+    charging = True    #changes when charger is pluged in
     battery_charge_time = 0
     str_batt_char = ''
     if charging == True:
         battery_charge_time = 2
         str_batt_char = str(battery_charge_time) + 'hr'
+
+    def headlight_callback(self,  switchObject, switchValue):
+        if(switchValue):
+            print("headlght_on")
+        else:
+            print("headlight_off")
+
+
 
 
     def build(self):
@@ -63,8 +68,9 @@ class dashboardApp(App):
 
 
 
-
 if __name__ == "__main__": 
     dashboardApp().run()
+
+
 
 
