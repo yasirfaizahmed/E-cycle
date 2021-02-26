@@ -3,12 +3,12 @@
 
 
 
-
-
-
 ####### divider canvases #######
     canvas:
+        Color:
+            rgba: 0, 0, 0, 1
         Rectangle:
+
             group: 'a'
             pos: self.center_x - 38, 165
             size: 80, 5
@@ -30,13 +30,14 @@
 ######## speed ########
     Label:
         text: str(app.variables["speed"])
+        color: (0,0,0)
         font_name: 'myfont'
         pos_hint: {'x':0.44, 'y':0.4}
         size_hint: None, None
         font_size: 80
-
     Label:
         text: 'KMPH'
+        color: (0,0,0)
         font_name: 'myfont'
         pos_hint: {'x':0.44, 'y':0.29}
         size_hint: None, None
@@ -51,10 +52,13 @@
 ####### KMS_ran #######
     Label:
         text: str(app.variables["kms_ran"]) + ' kms'
+        color: (0,0,0)
         font_name: 'myfont'
         pos_hint: {'x':0.45, 'y':0.6}
         size_hint: None, None
         font_size: 35
+
+
 
 
 
@@ -67,24 +71,36 @@
         size: 150, 280
         allow_stretch: True
         keep_ratio: False
-
     Label:
-        text: app.str_batt_per + '%'
+        text: str(app.variables["battery_percentage"])+ '%'
         font_name: 'myfont'
+        color: (0,0,0)
         pos_hint: {'x':0.09, 'y':0.5}
         size_hint: None, None
         font_size: 35
 
     Label:
         text: app.str_batt_char
+        color: (0,0,0)
+        font_name: 'myfont'
+        pos_hint: {'x':-0.01, 'y':0.05}
+        size_hint: None, None
+        font_size:30
+    Label:
+        text: 'hrs remaining'
+        color: (0,0,0)
         font_name: 'myfont'
         pos_hint: {'x':0.09, 'y':0.05}
         size_hint: None, None
-        font_size:30
+        font_size:17
 
-
-
-
+    Label:
+        text: str(app.variables["battery_temp"]) + ' C'
+        color: (0,0,0)
+        font_name: 'myfont'
+        pos_hint: {'x':0.09, 'y':0.8}
+        size_hint: None, None
+        font_size:25
 
 
 
@@ -92,13 +108,14 @@
 ####### Mileage #######
     Label:
         text: 'Mileage '
+        color: (0,0,0)
         font_name: 'myfont'
         pos_hint: {'x':0.05, 'y':0.15}
         size_hint: None, None
         font_size: 20
-
     Label:
         text: str(app.variables["mileage"])
+        color: (0,0,0)
         font_name: 'myfont'
         pos_hint: {'x':0.15, 'y':0.15}
         size_hint: None, None
@@ -113,12 +130,27 @@
         on_active: app.headlight_callback(self, self.active)
         pos_hint: {'x':0.25, 'y':0.04}
         size_hint: None, None
+    Image:
+        source: 'headlight_on.png'
+        pos_hint: {'x':0.27, 'y':0.00}
+        size_hint: None, None
+        size: 70, 50
+        allow_stretch: True
+        keep_ratio: False
+
 
     Switch:
         active: False
-        #on_active: app.headlight_callback(self, self.active)
+        on_active: app.cruise_mode_callback(self, self.active)
         pos_hint: {'x':0.4, 'y':0.04}
         size_hint: None, None
+    Image:
+        source: 'cruise.png'
+        pos_hint: {'x':0.42, 'y':0.00}
+        size_hint: None, None
+        size: 70, 50
+        allow_stretch: True
+        keep_ratio: False
 
     Switch:
         active: False
