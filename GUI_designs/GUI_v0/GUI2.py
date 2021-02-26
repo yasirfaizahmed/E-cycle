@@ -11,13 +11,13 @@ from kivy.properties import DictProperty
 
 LabelBase.register(fn_regular='Orbitron-VariableFont_wght.ttf', name='myfont')
 
-Window.clearcolor = (0, 0, 0, 1)
+Window.clearcolor = (1, 1, 1, 1)
 Window.size = (800, 480)
 
 
 
 
-class FloatLayout(FloatLayout):    
+class FloatLayout(FloatLayout):    #root widget, main logic class
 
 
     def __init__(self, **kwargs):
@@ -28,36 +28,44 @@ class FloatLayout(FloatLayout):
 
 
 class dashboardApp(App):
-    variables = DictProperty({"speed": 25, "kms_ran": 1500, "mileage": 56})
+    variables = DictProperty({"speed": 25, "kms_ran": 1500, "mileage": 56, "battery_percentage": 49, "btry_crg_sts": False, "battery_temp": 32})
 
 
     def update(self, interval):
+        # call kms_ran calculating function here, and update the dict keys
         self.variables["kms_ran"] += 1
         print(self.variables["kms_ran"])
 
+        # call mileage calculating function here, and update the dict keys
         self.variables["mileage"] -= 1
         print(self.variables["mileage"])
 
+        # call battery_percentage calculating function here, update the dict keys
+        self.variables["battery_percentage"] -= 1
 
+        # call battery_temp calculating function here, update the dict keys
+        self.variables["battery_temp"] = 33
 
-
-    battery_percentage = 49
-    str_batt_per = str(battery_percentage)
 
     charging = True    #changes when charger is pluged in
     battery_charge_time = 0
     str_batt_char = ''
     if charging == True:
         battery_charge_time = 2
-        str_batt_char = str(battery_charge_time) + 'hr'
+        str_batt_char = str(battery_charge_time)
 
     def headlight_callback(self,  switchObject, switchValue):
         if(switchValue):
+            #turn on the light
             print("headlght_on")
         else:
+            #turn off the lights
             print("headlight_off")
 
-
+    def cruise_mode_callback(self, switchObject, switchValue):
+        if(switchValue):
+            print("cruise mode on")
+            #cruise mode on
 
 
     def build(self):
