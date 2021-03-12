@@ -15,7 +15,7 @@ LabelBase.register(fn_regular='Orbitron-VariableFont_wght.ttf', name='myfont')
 
 Window.clearcolor = (1, 1, 1, 1)
 Window.size = (920,480 )
-Window.fullscreen = False
+Window.fullscreen = True
 
 
 
