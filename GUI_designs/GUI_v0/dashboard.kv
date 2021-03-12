@@ -1,5 +1,5 @@
 <FloatLayout>
-
+        
 
 
 
@@ -22,6 +22,12 @@
             group: 'a'
             pos: self.center_x - 75, 300
             size: 170, 5
+
+        Rectangle:
+            group: 'a'
+            pos: self.center_x + 150, 120
+            size: 3, 320
+
 
 
 
@@ -154,12 +160,37 @@
 
     Switch:
         active: False
-        #on_active: app.headlight_callback(self, self.active)
+        on_active: app.headlight_callback(self, self.active)
         pos_hint: {'x':0.55, 'y':0.04}
         size_hint: None, None
 
     Switch:
         active: False
-        #on_active: app.headlight_callback(self, self.active)
+        on_active: app.headlight_callback(self, self.active)
         pos_hint: {'x':0.7, 'y':0.04}
         size_hint: None, None
+    
+
+  
+        
+    
+
+
+##### Vitals #######
+    
+    Image:
+        source: 'heart.png'
+        pos_hint: {'x':0.7, 'y':0.45}
+        size_hint: None, None
+        size: 220, 200
+        allow_stretch: True
+        keep_ratio: False
+    Label:
+        text: str(app.variables["heart_rate"])+ 'bpm'
+        font_name: 'myfont'
+        color: (1,0,0)
+        pos_hint: {'x':0.76, 'y':0.57}
+        size_hint: None, None
+        font_size: 35
+
+    
