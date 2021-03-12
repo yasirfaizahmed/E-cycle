@@ -1,3 +1,7 @@
+
+############################ 1024 * 1920 res ############################################## 
+
+
 <FloatLayout>
         
 
@@ -8,25 +12,24 @@
         Color:
             rgba: 0, 0, 0, 1
         Rectangle:
-
             group: 'a'
-            pos: self.center_x - 38, 165
-            size: 80, 5
+            pos: self.center_x - 55, 240
+            size: 100, 10
+          
+        Rectangle:
+            group: 'a'
+            pos: self.center_x - 85, 470
+            size: 170, 10
 
         Rectangle:
             group: 'a'
             pos: self.center_x - 150, 120
-            size: 3, 320
-
-        Rectangle:
-            group: 'a'
-            pos: self.center_x - 75, 300
-            size: 170, 5
+            size: 7, 520
 
         Rectangle:
             group: 'a'
             pos: self.center_x + 150, 120
-            size: 3, 320
+            size: 7, 520
 
 
 
@@ -40,7 +43,7 @@
         font_name: 'myfont'
         pos_hint: {'x':0.44, 'y':0.4}
         size_hint: None, None
-        font_size: 80
+        font_size: 85
     Label:
         text: 'KMPH'
         color: (0,0,0)
@@ -74,16 +77,16 @@
         source: 'battery.png'
         pos_hint: {'x':0.06, 'y':0.3}
         size_hint: None, None
-        size: 150, 280
+        size: 170, 350
         allow_stretch: True
         keep_ratio: False
     Label:
         text: str(app.variables["battery_percentage"])+ '%'
         font_name: 'myfont'
         color: (0,0,0)
-        pos_hint: {'x':0.09, 'y':0.5}
+        pos_hint: {'x':0.099, 'y':0.45}
         size_hint: None, None
-        font_size: 35
+        font_size: 40
 
     Label:
         text: app.str_batt_char
@@ -104,7 +107,7 @@
         text: str(app.variables["battery_temp"]) + ' C'
         color: (0,0,0)
         font_name: 'myfont'
-        pos_hint: {'x':0.09, 'y':0.8}
+        pos_hint: {'x':0.09, 'y':0.72}
         size_hint: None, None
         font_size:25
 
@@ -189,7 +192,7 @@
         text: str(app.variables["heart_rate"])+ 'bpm'
         font_name: 'myfont'
         color: (1,0,0)
-        pos_hint: {'x':0.76, 'y':0.57}
+        pos_hint: {'x':0.76, 'y':0.54}
         size_hint: None, None
         font_size: 35
 
