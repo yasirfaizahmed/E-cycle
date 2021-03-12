@@ -1,3 +1,6 @@
+############################ 1024 * 1920 res ###############################
+############################ edit config.ini file in .kivy/config.ini to make the touch work ###############
+
 
 from kivy.app import App
 from kivy.core.window import Window
@@ -31,7 +34,7 @@ class FloatLayout(FloatLayout):    #root widget, main logic class
 
 
 class dashboardApp(App):
-    variables = DictProperty({"speed": 25, "kms_ran": 1500, "mileage": 56, "battery_percentage": 49, "btry_crg_sts": False, "battery_temp": 32, "heart_rate": 72})
+    variables = DictProperty({"speed": 25, "kms_ran": 1500, "mileage": 56, "battery_percentage": 49, "btry_crg_sts": False, "battery_temp": 32, "heart_rate": 72, "oxygen": 69})
 
 
     def update(self, interval):
