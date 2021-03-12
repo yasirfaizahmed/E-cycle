@@ -3,6 +3,8 @@ from kivy.app import App
 from kivy.core.window import Window
 from kivy.uix.label import Label
 from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.togglebutton import ToggleButton
+from kivy.uix.gridlayout import GridLayout
 from kivy.core.text import LabelBase
 from kivy import clock
 from kivy.properties import DictProperty
@@ -12,7 +14,8 @@ from kivy.properties import DictProperty
 LabelBase.register(fn_regular='Orbitron-VariableFont_wght.ttf', name='myfont')
 
 Window.clearcolor = (1, 1, 1, 1)
-Window.size = (800, 480)
+Window.size = (920,480 )
+Window.fullscreen = False
 
 
 
@@ -28,7 +31,7 @@ class FloatLayout(FloatLayout):    #root widget, main logic class
 
 
 class dashboardApp(App):
-    variables = DictProperty({"speed": 25, "kms_ran": 1500, "mileage": 56, "battery_percentage": 49, "btry_crg_sts": False, "battery_temp": 32})
+    variables = DictProperty({"speed": 25, "kms_ran": 1500, "mileage": 56, "battery_percentage": 49, "btry_crg_sts": False, "battery_temp": 32, "heart_rate": 72})
 
 
     def update(self, interval):
@@ -45,6 +48,9 @@ class dashboardApp(App):
 
         # call battery_temp calculating function here, update the dict keys
         self.variables["battery_temp"] = 33
+        
+        #call eart_rate calculating function here, update the dict keys
+        self.variables["heart_rate"] += 1
 
 
     charging = True    #changes when charger is pluged in
@@ -77,4 +83,5 @@ class dashboardApp(App):
 
 if __name__ == "__main__": 
     dashboardApp().run()
+
 
