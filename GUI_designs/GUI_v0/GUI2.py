@@ -1,6 +1,8 @@
 ############################ 1024 * 768 res ###############################
 ############################ edit config.ini file in .kivy/config.ini to make the touch work ###############
 
+######kivy version v2.1.0.dev0  ############################
+######pyton version 3.7.3 ##################################
 
 from kivy.app import App
 from kivy.core.window import Window
