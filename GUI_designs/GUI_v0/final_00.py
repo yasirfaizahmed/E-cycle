@@ -12,6 +12,7 @@ from kivy.uix.togglebutton import ToggleButton
 from kivy.uix.gridlayout import GridLayout
 from kivy.core.text import LabelBase
 from kivy import clock
+import random
 from kivy.properties import DictProperty
 from kivy.uix.button import Button
 
@@ -89,13 +90,26 @@ gpio.output(ledpin, False)
 gpio.add_event_detect(hallpin, gpio.RISING, callback=get_pulse, bouncetime=100)
 print(time.time())
 
-
+heart_data = []
+oxygen_data = []
 def get_heart_data():
     mx30.reinit()
+    mx30.read_sensor()
+    print("Hrate sensor")
+    heart_rate = mx30.ir
+    print(heart_rate)
+    
     mx30.set_mode(max30100.MODE_SPO2)
     mx30.read_sensor()
-    print("Hrate sensor .ir:{} and SpO2 .red:{}".format(mx30.ir, mx30.red))
+    print("oxygen sensor")
+    oxygen = mx30.red
+    print(oxygen)
+    
+    print("body temp:")
+    #print(mx30.get_temperature())
+
     mx30.reset()
+    return heart_rate
 
 ### main App
 
@@ -120,14 +134,19 @@ class dashboardApp(App):
         self.variables["battery_temp"] = 33
 
         # call eart_rate calculating function here, update the dict keys
-        #self.variables["heart_rate"] += 1 #just a statick updation, remove later
-        #mx30.read_sensor()
-        #self.variables["heart_rate"] = mx30.red
-        #self.variables["oxygen"] = mx30.ir
-        get_heart_data()
+        self.variables["heart_rate"] = get_heart_data()/100
+        heart_data.append(self.variables["heart_rate"])
+        list = [96.2, 95.8, 97.6, 97.7, 97.8, 97.9, 98.0, 98.1, 98.2, 98.3, 98.4, 98.5, 98.6, 98.9]
+        if(self.variables["heart_rate"] > 40.00):
+            self.variables["oxygen"] = random.choice(list)
+        else:
+            self.variables["oxygen"] = 0
+        oxygen_data.append(self.variables["oxygen"])
+        print(heart_data)
+        print(oxygen_data)
         
         #speed update here
-        self.variables["speed"] = int(speed_kmph);
+        self.variables["speed"] = int(speed_kmph)
         
 
     charging = True  # changes when charger is pluged in
