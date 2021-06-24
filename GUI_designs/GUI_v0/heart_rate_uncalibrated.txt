@@ -1,0 +1,117 @@
+##################### left open, no contact with sensor
+
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:32 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:64 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:32 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+
+###################### just after a work out(jumping jacks lol)
+Hrate sensor .ir:10368 and SpO2 .red:0
+Hrate sensor .ir:9152 and SpO2 .red:0
+Hrate sensor .ir:8992 and SpO2 .red:0
+Hrate sensor .ir:9024 and SpO2 .red:0
+Hrate sensor .ir:9024 and SpO2 .red:0
+Hrate sensor .ir:8928 and SpO2 .red:0
+Hrate sensor .ir:8928 and SpO2 .red:0
+Hrate sensor .ir:8800 and SpO2 .red:0
+Hrate sensor .ir:8864 and SpO2 .red:0
+Hrate sensor .ir:8736 and SpO2 .red:0
+Hrate sensor .ir:8864 and SpO2 .red:0
+Hrate sensor .ir:8832 and SpO2 .red:0
+Hrate sensor .ir:8768 and SpO2 .red:0
+Hrate sensor .ir:8512 and SpO2 .red:0
+Hrate sensor .ir:8704 and SpO2 .red:0
+Hrate sensor .ir:8672 and SpO2 .red:0
+Hrate sensor .ir:8736 and SpO2 .red:0
+Hrate sensor .ir:8608 and SpO2 .red:0
+Hrate sensor .ir:8736 and SpO2 .red:0
+Hrate sensor .ir:8576 and SpO2 .red:0
+Hrate sensor .ir:8704 and SpO2 .red:0
+Hrate sensor .ir:8544 and SpO2 .red:0
+Hrate sensor .ir:8640 and SpO2 .red:0
+Hrate sensor .ir:8608 and SpO2 .red:0
+Hrate sensor .ir:8576 and SpO2 .red:0
+Hrate sensor .ir:8576 and SpO2 .red:0
+Hrate sensor .ir:8512 and SpO2 .red:0
+Hrate sensor .ir:8576 and SpO2 .red:0
+
+####################### no contact again
+Hrate sensor .ir:704 and SpO2 .red:0
+Hrate sensor .ir:128 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:32 and SpO2 .red:0
+Hrate sensor .ir:128 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:32 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:32 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:96 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:32 and SpO2 .red:0
+Hrate sensor .ir:32 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:64 and SpO2 .red:0
+Hrate sensor .ir:64 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:128 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:32 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:96 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:96 and SpO2 .red:0
+Hrate sensor .ir:96 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:32 and SpO2 .red:0
+Hrate sensor .ir:32 and SpO2 .red:0
+Hrate sensor .ir:64 and SpO2 .red:0
+Hrate sensor .ir:64 and SpO2 .red:0
+Hrate sensor .ir:0 and SpO2 .red:0
+Hrate sensor .ir:32 and SpO2 .red:0
+Hrate sensor .ir:288 and SpO2 .red:0
+Hrate sensor .ir:4096 and SpO2 .red:0
+
+######################nomal rate
+Hrate sensor .ir:7296 and SpO2 .red:0
+Hrate sensor .ir:8672 and SpO2 .red:0
+Hrate sensor .ir:8704 and SpO2 .red:0
+Hrate sensor .ir:8576 and SpO2 .red:0
+Hrate sensor .ir:8576 and SpO2 .red:0
+Hrate sensor .ir:8480 and SpO2 .red:0
+Hrate sensor .ir:8448 and SpO2 .red:0
+Hrate sensor .ir:8512 and SpO2 .red:0
+Hrate sensor .ir:8416 and SpO2 .red:0
+Hrate sensor .ir:8448 and SpO2 .red:0
+Hrate sensor .ir:11552 and SpO2 .red:0
+Hrate sensor .ir:9856 and SpO2 .red:0
+Hrate sensor .ir:9440 and SpO2 .red:0
+Hrate sensor .ir:9216 and SpO2 .red:0
+Hrate sensor .ir:8768 and SpO2 .red:0
+Hrate sensor .ir:8448 and SpO2 .red:0
+Hrate sensor .ir:7328 and SpO2 .red:0
+Hrate sensor .ir:7264 and SpO2 .red:0
+Hrate sensor .ir:4160 and SpO2 .red:0
+Hrate sensor .ir:7584 and SpO2 .red:0
+Hrate sensor .ir:7296 and SpO2 .red:0
+
+
