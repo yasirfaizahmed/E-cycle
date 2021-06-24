@@ -19,7 +19,11 @@ from kivy.uix.button import Button
 import RPi.GPIO as gpio
 import time as time
 
-#import max30100
+import os
+import sys
+import max30100
+######## max30100 object
+mx30 = max30100.MAX30100()
 
 #import gps
 
@@ -29,14 +33,13 @@ Window.clearcolor = (1, 1, 1, 1)
 Window.size = (920, 480)
 Window.fullscreen = True
 
-######## max30100 object
-#mx30 = max30100.MAX30100()
+
 
 
 ###### RTI methods
 
-hallpin = 2
-ledpin = 3
+hallpin = 17
+ledpin = 27
 
 speed_kmph = 0
 distance_ran_km = 0
@@ -49,7 +52,10 @@ rpm=0
 v=0
 
 
-
+elapse_data = []
+rpm_data = []
+speed_data = []
+dist_data = []
 def get_pulse(number):
     global rotation,prevtime,elapse,dtime, speed_kmph, distance_ran_km
     rotation+=1
@@ -67,21 +73,29 @@ def get_pulse(number):
 
 
         #print("Detected!!!\n")
-        print("time:" ,elapse)
-        print('rpm:',rpm)
-        print("speed:",v)
-        print("distance:",dist)
-        print("\n")
+        elapse_data.append(elapse)
+        rpm_data.append(rpm)
+        speed_data.append(speed_kmph)
+        dist_data.append(dist)
+        
+        
 
 ##########RTI
 gpio.setmode(gpio.BCM)
 gpio.setwarnings(False)
-gpio.setup(2, gpio.IN)
+gpio.setup(hallpin, gpio.IN)
 gpio.setup(ledpin, gpio.OUT)
 gpio.output(ledpin, False)
-gpio.add_event_detect(2, gpio.RISING, callback=get_pulse)
+gpio.add_event_detect(hallpin, gpio.RISING, callback=get_pulse, bouncetime=100)
 print(time.time())
 
+
+def get_heart_data():
+    mx30.reinit()
+    mx30.set_mode(max30100.MODE_SPO2)
+    mx30.read_sensor()
+    print("Hrate sensor .ir:{} and SpO2 .red:{}".format(mx30.ir, mx30.red))
+    mx30.reset()
 
 ### main App
 
@@ -110,6 +124,7 @@ class dashboardApp(App):
         #mx30.read_sensor()
         #self.variables["heart_rate"] = mx30.red
         #self.variables["oxygen"] = mx30.ir
+        get_heart_data()
         
         #speed update here
         self.variables["speed"] = int(speed_kmph);
@@ -286,10 +301,11 @@ class FloatLayout(FloatLayout):  # root widget, main logic class
 
 
 if __name__ == "__main__":
-   
+    
     
     
     dashboardApp().run()
+    
     
     
     
@@ -300,3 +316,4 @@ if __name__ == "__main__":
 #file = open('geek.txt', 'w+')
 #for line in file:
 #distance_ran_km = line
+
