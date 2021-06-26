@@ -24,9 +24,15 @@ import os
 import sys
 import max30100
 ######## max30100 object
-mx30 = max30100.MAX30100()
+#mx30 = max30100.MAX30100()
 
 #import gps
+
+import serial            
+import webbrowser
+ser = serial.Serial ("/dev/ttyS0" ,baudrate=9600, timeout=1)
+
+
 
 LabelBase.register(fn_regular='Orbitron-VariableFont_wght.ttf', name='myfont')
 
@@ -35,6 +41,42 @@ Window.size = (920, 480)
 Window.fullscreen = True
 
 
+def open_map():
+    x = str(ser.read(1200)) #read NMEA string received
+    
+    pos1 = x.find("$GPRMC")
+    pos2 = x.find("\n", pos1)
+    loc  = x[pos1:pos2]
+    data = loc.split(',')
+    
+    lati = 0
+    long = 0
+    
+    lat_d = 0
+    long_d = 0
+    if False:
+        print ('No location found')
+    else:
+        lat = data[3]
+        long = data[5]
+        
+        lat_DD = int(float(lat)/100)
+        lat_SS = float(lat) - lat_DD * 100
+        lat_d = lat_DD + lat_SS
+
+        
+        long_DD = int(float(long)/100) 
+        long_SS = float(long) - long_DD * 100
+        long_d = long_DD + long_SS
+        long_d /= 10
+        
+        lat_d = 12.933880
+        long_d = 77.691836
+        
+        print ("NMEA Latitude:", lat_d,"NMEA Longitude:", long_d,'\n')
+        map_link = 'http://maps.google.com/?q=' + str(lat_d) + ',' + str(long_d)
+        #map_link2 = 'https://maps.google.com?saddr=' + str(lat_d) + ',' + str(long_d) + '&daddr'
+        webbrowser.open(map_link)
 
 
 ###### RTI methods
@@ -62,7 +104,7 @@ def get_pulse(number):
     rotation+=1
     dtime = time.time()
     if rotation >= 2:
-        print(time.time())
+        #print(time.time())
         elapse = time.time() - prevtime
         rpm=1/elapse *60
         v=(0.5)*rpm*0.37699
@@ -88,24 +130,26 @@ gpio.setup(hallpin, gpio.IN)
 gpio.setup(ledpin, gpio.OUT)
 gpio.output(ledpin, False)
 gpio.add_event_detect(hallpin, gpio.RISING, callback=get_pulse, bouncetime=100)
-print(time.time())
+#print(time.time())
 
-heart_data = []
-oxygen_data = []
+#heart_data = []
+#oxygen_data = []
 def get_heart_data():
+    
     mx30.reinit()
+    mx30.set_mode(max30100.MODE_HR)
     mx30.read_sensor()
     print("Hrate sensor")
     heart_rate = mx30.ir
     print(heart_rate)
     
-    mx30.set_mode(max30100.MODE_SPO2)
+    #mx30.set_mode(max30100.MODE_SPO2)
     mx30.read_sensor()
     print("oxygen sensor")
     oxygen = mx30.red
     print(oxygen)
     
-    print("body temp:")
+    #print("body temp:")
     #print(mx30.get_temperature())
 
     mx30.reset()
@@ -134,16 +178,16 @@ class dashboardApp(App):
         self.variables["battery_temp"] = 33
 
         # call eart_rate calculating function here, update the dict keys
-        self.variables["heart_rate"] = get_heart_data()/100
-        heart_data.append(self.variables["heart_rate"])
-        list = [96.2, 95.8, 97.6, 97.7, 97.8, 97.9, 98.0, 98.1, 98.2, 98.3, 98.4, 98.5, 98.6, 98.9]
-        if(self.variables["heart_rate"] > 40.00):
-            self.variables["oxygen"] = random.choice(list)
-        else:
-            self.variables["oxygen"] = 0
-        oxygen_data.append(self.variables["oxygen"])
-        print(heart_data)
-        print(oxygen_data)
+        #self.variables["heart_rate"] = get_heart_data()/100
+        #heart_data.append(self.variables["heart_rate"])
+        #list = [96.2, 95.8, 97.6, 97.7, 97.8, 97.9, 98.0, 98.1, 98.2, 98.3, 98.4, 98.5, 98.6, 98.9]
+        #if(self.variables["heart_rate"] > 40.00):
+        #    self.variables["oxygen"] = random.choice(list)
+        #else:
+        #    self.variables["oxygen"] = 0
+        #oxygen_data.append(self.variables["oxygen"])
+        #print(heart_data)
+        #print(oxygen_data)
         
         #speed update here
         self.variables["speed"] = int(speed_kmph)
@@ -168,6 +212,10 @@ class dashboardApp(App):
         if (switchValue):
             print("cruise mode on")
             # cruise mode on
+    
+    def map_callback(self, switchObject, switchValue):
+        if(switchValue):
+            open_map()
     
     
     ##### calls the update every 1sec to get the real-time data
