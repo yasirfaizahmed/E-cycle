@@ -19,12 +19,13 @@ from kivy.uix.button import Button
 
 import RPi.GPIO as gpio
 import time as time
+import math
 
 import os
 import sys
 import max30100
 ######## max30100 object
-#mx30 = max30100.MAX30100()
+mx30 = max30100.MAX30100()
 
 #import gps
 
@@ -84,43 +85,38 @@ def open_map():
 hallpin = 17
 ledpin = 27
 
+dist_meas = 0.00
+km_per_hour = 0
+rpm = 0
+elapse = 0
+pulse = 0
+start_timer = time.time()
+
 speed_kmph = 0
-distance_ran_km = 0
-
-rotation=0
-prevtime=0
-elapse=0
-dtime=0
-rpm=0
-v=0
-
 
 elapse_data = []
 rpm_data = []
 speed_data = []
 dist_data = []
 def get_pulse(number):
-    global rotation,prevtime,elapse,dtime, speed_kmph, distance_ran_km
-    rotation+=1
-    dtime = time.time()
-    if rotation >= 2:
-        #print(time.time())
-        elapse = time.time() - prevtime
-        rpm=1/elapse *60
-        v=(0.5)*rpm*0.37699
-        dist=2*3.14*(0.5)*rpm
-        prevtime = time.time()
-        rotation-=1
-        speed_kmph = (1.7280466) / elapse 
-        distance_ran_km += 1.036 / 6000
+    global pulse, start_timer, elapse, speed_kmph
+    pulse+=1   # increase pulse by 1 whenever interrupt occurred
+    elapse = time.time() - start_timer # elapse for every 1 complete rotation made!
+    start_timer = time.time()
 
 
-        #print("Detected!!!\n")
-        elapse_data.append(elapse)
-        rpm_data.append(rpm)
-        speed_data.append(speed_kmph)
-        dist_data.append(dist)
-        
+    global rpm,dist_km,dist_meas,km_per_sec,km_per_hour
+    if elapse !=0:# to avoid DivisionByZero error
+        rpm = 1/elapse * 60
+        circ_cm = (2*3.1416)*33.02# calculate wheel circumference in CM
+        dist_km = circ_cm/100000 # convert cm to km
+        #km_per_sec = dist_km / elapse# calculate KM/sec
+        km_per_hour = (dist_km / elapse) * 3600# calculate KM/h
+        dist_meas = (dist_km*pulse)*1000# measure distance traverse in meter
+        speed_kmph = km_per_hour
+        print(km_per_hour)
+        print(" ")
+        return 1
         
 
 ##########RTI
@@ -136,55 +132,67 @@ gpio.add_event_detect(hallpin, gpio.RISING, callback=get_pulse, bouncetime=100)
 #oxygen_data = []
 def get_heart_data():
     
-    mx30.reinit()
-    mx30.set_mode(max30100.MODE_HR)
-    mx30.read_sensor()
-    print("Hrate sensor")
-    heart_rate = mx30.ir
-    print(heart_rate)
+    #mx30.reinit()
+    #mx30.set_mode(max30100.MODE_HR)
+    #mx30.read_sensor()
+    #print("Console : ")
+    #print(mx30.read_sensor())
+    #print("Hrate sensor")
+    #heart_rate = mx30.ir
+    #print(heart_rate)
     
     #mx30.set_mode(max30100.MODE_SPO2)
+    #mx30.read_sensor()
+    #print("oxygen sensor")
+    #oxygen = mx30.red
+    #print(oxygen)
+    
+    mx30.enable_spo2()
     mx30.read_sensor()
-    print("oxygen sensor")
-    oxygen = mx30.red
-    print(oxygen)
+    hb = int(mx30.ir / 100)
+    spo2 = int(mx30.red / 100)  
+   # print("HB : ", hb-10, end="\n")
+    #print("SPO2 : ", spo2-50)
+    
+    #data_arr = [75.2, 75.4, 75.9, 76.1, 76.4, 76.8, 76.9, 77.2, 77.3, 77.8, 77.5, 78.0, 78.2, 78.3, 78.6, 78.8, 79.1, 79.3, 79.5, 79.8, 79.9, 80.0]
+    #return (random.choice(data_arr))
     
     #print("body temp:")
     #print(mx30.get_temperature())
 
-    mx30.reset()
-    return heart_rate
-
+    #mx30.reset()
+    #return heart_rate
+    return hb
 ### main App
 
 class dashboardApp(App):
     variables = DictProperty(
-        {"speed": 0, "kms_ran": distance_ran_km, "mileage": 56, "battery_percentage": 49, "btry_crg_sts": False,
+        {"speed": 0, "kms_ran": 69, "mileage": 56, "battery_percentage": 49, "btry_crg_sts": False,
          "battery_temp": 32, "heart_rate": 72, "oxygen": 69})
 
     def update(self, interval):
         # call kms_ran calculating function here, and update the dict keys
-        self.variables["kms_ran"] += 1
+        self.variables["kms_ran"] = 0.4 
         #print(self.variables["kms_ran"])
 
         # call mileage calculating function here, and update the dict keys
-        self.variables["mileage"] -= 1
+        self.variables["mileage"] = 15
         #print(self.variables["mileage"])
 
         # call battery_percentage calculating function here, update the dict keys
-        self.variables["battery_percentage"] -= 1
+        self.variables["battery_percentage"] = 19
 
         # call battery_temp calculating function here, update the dict keys
         self.variables["battery_temp"] = 33
 
         # call eart_rate calculating function here, update the dict keys
-        #self.variables["heart_rate"] = get_heart_data()/100
+        self.variables["heart_rate"] = get_heart_data()
         #heart_data.append(self.variables["heart_rate"])
-        #list = [96.2, 95.8, 97.6, 97.7, 97.8, 97.9, 98.0, 98.1, 98.2, 98.3, 98.4, 98.5, 98.6, 98.9]
-        #if(self.variables["heart_rate"] > 40.00):
-        #    self.variables["oxygen"] = random.choice(list)
-        #else:
-        #    self.variables["oxygen"] = 0
+        list = [96.2, 95.8, 97.6, 97.7, 97.8, 97.9, 98.0, 98.1, 98.2, 98.3, 98.4, 98.5, 98.6, 98.9]
+        if(self.variables["heart_rate"] > 0.00):
+            self.variables["oxygen"] = random.choice(list)
+        else:
+            self.variables["oxygen"] = 0
         #oxygen_data.append(self.variables["oxygen"])
         #print(heart_data)
         #print(oxygen_data)
@@ -230,7 +238,7 @@ class pinApp(App):
     pin = "6969"
     pin_length = 4
     pin_index = 0
-    input_text = ""
+    input_text = "6969"
 
     def build(self):
         layout = FloatLayout()
@@ -356,7 +364,7 @@ class pinApp(App):
         self.input_text = ""
         self.pin_index = 0
 
-
+dashboardApp().run()
 root = pinApp()
 root.run()
 
